@@ -1,0 +1,122 @@
+swagger: '2.0'
+
+schemes: 
+  - http 
+  - https
+  
+host: localhost:8080
+basePath: /gaia-user-account/api/v1
+
+info:
+  version: 1.0.0
+  title: Management Account API
+  description: Essa API administra contas de usuário
+  termsOfService: http://localhost:8080/gaiaUserAccount-api/v1/termo-uso
+  contact:
+    name: Suporte
+    url:  http://localhost:8080/gaiaUserAccount-api/v1/termo-uso/suporte
+    email: itprodigium@gmail.com
+paths:
+  /usuario:
+    post:
+      summary: Cadastra usuário
+      description: cadastra um novo usuário
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      operationId: cadastraUsuario
+      parameters: 
+        - in: body
+          name: usuario_
+          schema:
+            $ref: "#/definitions/NewUsuario" 
+      responses:
+        201:
+          description: Cadastro efetuado com sucesso
+          schema:
+            $ref: "#/definitions/Usuario"
+        400: 
+          description: Requisição inválid
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Erro interno no servidor
+          schema:
+            $ref: '#/definitions/Error'
+    get:
+      summary: Lista todos usuários
+      description: Lista todos os usuários do sistema 
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      operationId: listaUsuario
+      responses:
+        201:
+          description: Listagem realizada com sucesso
+          schema:
+            $ref: '#/definitions/Usuarios'
+        400:
+          description: Requisição inválida
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Erro interno no servidor
+          schema:
+            $ref: '#/definitions/Error'
+        
+          
+definitions:        
+  Usuario:
+    type: object
+    properties:
+      nome: 
+        type: string
+        example: Maria Silva
+      cargo: 
+        type: string
+        example: Desenvolvedora Pleno
+      email:
+        type: string
+        example: mariasilva@email.com
+      senha:
+        type: string
+        example: p@ssWord1520 
+      ativo/inativo:
+        type: boolean
+  
+  NewUsuario:
+    type: object
+    properties:
+      nome: 
+        type: string
+      cargo: 
+        type: string
+      email:
+        type: string
+        example: mariasilva@email.com
+      senha:
+        type: string
+      ativo/inativo:
+        type: boolean
+
+  Usuarios:
+    type: array
+    items:
+      $ref: '#/definitions/Usuario'
+      
+  Error:
+    type: "array"
+    items:
+      type: "object"
+      required: 
+      - code
+      - error
+      properties:
+        code:
+          type: "string"
+        error:
+          type: "string"
+            
+   
