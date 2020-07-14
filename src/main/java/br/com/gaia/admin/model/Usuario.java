@@ -1,6 +1,15 @@
 package br.com.gaia.admin.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Usuario {
+    @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    private int id;
     private String nome;
     private String cargo;
     private String email;
@@ -46,12 +55,14 @@ public class Usuario {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-    
-    public Usuario(String nome, String cargo, String email, String senha, boolean ativo) {
-        this.nome = nome;
-        this.cargo = cargo;
-        this.email = email;
-        this.senha = senha;
-        this.ativo = ativo;
+
+
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }
