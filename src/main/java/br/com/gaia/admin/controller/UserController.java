@@ -2,6 +2,7 @@ package br.com.gaia.admin.controller;
 
 import br.com.gaia.admin.model.User;
 import br.com.gaia.admin.service.UserService;
+import org.graalvm.compiler.lir.LIRInstruction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(path= "/user")
-    public ResponseEntity<User> createUser(@ResponseBody User user){
+    public ResponseEntity<User> createUser(@RequestBody User user){
      try {
         User createUser = userService.save(user);
          return new ResponseEntity<>(createUser, HttpStatus.OK);
@@ -50,10 +51,20 @@ public class UserController {
     @GetMapping (path = "/user/{userId}")
     public ResponseEntity<User> getUser(@PathVariable Integer userId){
         User getUser = userService.getUser(userId);
+        if(nonNull(getUser)){
+            return new ResponseEntity<>(getUser, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping (path = "/user/{userId}")
-
-
-
+    public ResponseEntity<User> deleteUser(@PathVariable Integer userId){
+        User deleteUser = userService.deleteUser(userId);
+        if (nonNull(deleteUser)){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
