@@ -30,12 +30,12 @@ paths:
         - in: body
           name: usuario_
           schema:
-            $ref: "#/definitions/NewUsuario" 
+            $ref: "#/definitions/NewUser"
       responses:
         201:
           description: Cadastro efetuado com sucesso
           schema:
-            $ref: "#/definitions/Usuario"
+            $ref: "#/definitions/User"
         400: 
           description: Requisição inválid
           schema:
@@ -56,7 +56,7 @@ paths:
         201:
           description: Listagem realizada com sucesso
           schema:
-            $ref: '#/definitions/Usuarios'
+            $ref: '#/definitions/Users'
         400:
           description: Requisição inválida
           schema:
@@ -104,7 +104,7 @@ definitions:
   Usuarios:
     type: array
     items:
-      $ref: '#/definitions/Usuario'
+      $ref: '#/definitions/User'
       
   Error:
     type: "array"
