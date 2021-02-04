@@ -14,6 +14,7 @@ public class UserService {
     private UserValidation userValidation;
 
     public User save(User user) throws Exception{
+
         userValidation.validate(user);
         return userRepository.save(user);
     }
@@ -23,10 +24,15 @@ public class UserService {
     }
 
     public User update(Integer userId, User user) throws Exception {
+
         Optional<User> userOptional = userRepository.findById(userId);
         if(userOptional.isPresent()){
             user.setId(userId);
             userValidation.validate(user);
+        }
+    }
+
+    public Iterable<User> list() {
             return userRepository.save(user);
         } else {
             return null;

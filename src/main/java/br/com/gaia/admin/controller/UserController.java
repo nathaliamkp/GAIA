@@ -3,13 +3,8 @@ package br.com.gaia.admin.controller;
 import br.com.gaia.admin.model.User;
 import br.com.gaia.admin.service.UserService;
 import org.graalvm.compiler.lir.LIRInstruction;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
 import static java.util.Objects.nonNull;
+
 
 @Controller
 @RequestMapping(path = "/gaia-user-account/api/v1")
@@ -19,7 +14,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(path= "/user")
-    public ResponseEntity<User> createUser(@RequestBody User user){
+
+    public ResponseEntity<User> createUser(@ResponseBody User user){
      try {
         User createUser = userService.save(user);
          return new ResponseEntity<>(createUser, HttpStatus.OK);
@@ -28,11 +24,13 @@ public class UserController {
      }
     }
 
+
     @GetMapping (path ="/user")
     public @ResponseBody
     Iterable<User> listUser(){
         return userService.list();
     }
+
 
     @PutMapping(path = "/user/{userId}")
     public ResponseEntity<User> updateUser(@PathVariable Integer userId, @RequestBody User user){
@@ -67,4 +65,4 @@ public class UserController {
             return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-}
+
