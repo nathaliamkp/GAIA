@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Usuario {
+public class User {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private int id;
@@ -65,4 +65,15 @@ public class Usuario {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cargo='" + cargo + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                ", ativo=" + ativo +
+                '}';
+    }
 }
